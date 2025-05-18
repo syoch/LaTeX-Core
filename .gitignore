@@ -1,0 +1,16 @@
+*.dvi
+*.aux
+*.hash
+*.log
+
+node_modules
+
+Thumbs.db
+
+Ec?/*/data/*/table.eps
+Ec?/*/data/*/table.tex
+
+Ec?/*/main/*
+!Ec?/*/main/template.pdf
+!Ec?/*/main/template.tex
+!Ec?/*/main/*.sty
