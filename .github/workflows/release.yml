@@ -19,4 +19,4 @@ jobs:
 
       - name: Release
         run: |
-          TOKEN=${{ secrets.GITHUB_TOKEN }} .github/workflows/release.sh ${{ github.ref_name }}
+          TOKEN=${{ secrets.GITHUB_TOKEN }} CROSS_TOKEN=${{secrets.GH_CROSS_TOKEN}} .github/workflows/release.sh ${{ github.ref_name }}
