@@ -31,6 +31,8 @@ rm -rf "$installation_dir"
 
 GH_TOKEN=$TOKEN gh release create $revision --generate-notes $deb_file
 
+echo $CROSS_TOKEN | sha256sum
+
 curl -X POST \
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: token $CROSS_TOKEN" \
