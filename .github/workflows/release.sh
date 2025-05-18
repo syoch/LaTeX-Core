@@ -29,7 +29,7 @@ cp -r makefile.d "$installation_dir"/usr/share/makefile.d
 dpkg-deb --build "$installation_dir" $deb_file
 rm -rf "$installation_dir"
 
-gh release create $revision --generate-notes $deb_file
+GH_TOKEN=$TOKEN gh release create $revision --generate-notes $deb_file
 
 curl -X POST \
     -H "Accept: application/vnd.github.v3+json" \
