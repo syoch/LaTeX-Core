@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installation_dir=$(pwd)/inst
-dest=$2
+dest=$1
 
 if [ -d "$installation_dir" ]; then
     rm -drf "$installation_dir"
