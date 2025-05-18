@@ -30,3 +30,9 @@ dpkg-deb --build "$installation_dir" $deb_file
 rm -rf "$installation_dir"
 
 gh release create $revision --generate-notes $deb_file
+
+curl -X POST \
+    -H "Accept: application/vnd.github.v3+json" \
+    -H "Authorization: token $TOKEN" \
+    https://api.github.com/repos/syoch/ppa/actions/workflows/upload.yml/dispatches \
+    -d '{"ref":"main", "inputs": {"version": "${{ github.ref_name }}", "repo": "syoch/LaTeX-Core", "deb": "$deb_file"}}'
