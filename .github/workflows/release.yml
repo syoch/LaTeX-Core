@@ -14,21 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Generate release notes
+      - name: Create archive with makefile.d
         run: |
-          git fetch --tags
-          PREV_TAG=$(git tag --sort=-creatordate | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed -n '2p')
-          if [ -z "$PREV_TAG" ]; then
-            git log --oneline > commits.txt
-          else
-            git log "$PREV_TAG"..HEAD --oneline > commits.txt
-          fi
+          tar -czf makefile.d.tar.gz makefile.d
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body_path: commits.txt
+      - name: Create release
+        run: |
+          gh release create ${{github.ref_name}} --generate-notes makefile.d.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
