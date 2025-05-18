@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
 installation_dir=$(pwd)/inst
-version=$(echo $1 | sed -e 's/rc/./g' -e 's/^v//g')
+revision=$1
+
+version=$(echo $revision | sed -e 's/rc/./g' -e 's/^v//g')
+deb_file=report-core-"$version".deb
 
 if [ -d "$installation_dir" ]; then
     rm -drf "$installation_dir"
@@ -23,5 +26,7 @@ EOF
 mkdir -p "$installation_dir"/usr/share
 cp -r makefile.d "$installation_dir"/usr/share/makefile.d
 
-dpkg-deb --build "$installation_dir" report-core-"$version".deb
+dpkg-deb --build "$installation_dir" $deb_file
 rm -rf "$installation_dir"
+
+gh release create $revision --generate-notes $deb_file

@@ -14,16 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Packaging
+      - name: Release
         # bash ./package.sh $(revision)
         run: |
-          ./package.sh ${{ github.ref_name }}
-
-      - name: Create release
-        run: |
-          gh release create ${{github.ref_name}} --generate-notes /tmp/dist.deb
+          .github/workflows/release.sh ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 
   upload-release:
     runs-on: ubuntu-latest
