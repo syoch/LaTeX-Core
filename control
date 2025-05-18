@@ -1,7 +1,0 @@
-Package: LaTeX
-Version: 1.0.0
-Section: tools
-Priority: optional
-Architecture: all
-Maintainer: syoch64@gmail.com
-Description: LaTeX Core
