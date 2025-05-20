@@ -54,6 +54,7 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
+          permission-actions: write
 
       - name: Make Release
         id: make_release
