@@ -48,6 +48,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROSS_TOKEN: ${{ secrets.GH_CROSS_TOKEN }}
 
+      - uses: actions/create-github-app-token@v1
+        name: Generate GitHub App Token
+        id: generate-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Make Release
         id: make_release
@@ -67,7 +73,7 @@ jobs:
             https://api.github.com/repos/$PPA_REPO/actions/workflows/upload.yml/dispatches \
             -d '{"ref":"main", "inputs": {"version": "'$REVISION'", "repo": "$OUR_REPO", "deb": "'$DEB_FILE'"}}'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_CROSS_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           PPA_REPO: syoch/ppa
           REVISION: ${{ github.ref_name }}
           OUR_REPO: ${{ github.repository }}
