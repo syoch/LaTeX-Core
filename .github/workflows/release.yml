@@ -44,7 +44,7 @@ jobs:
           dpkg-deb --build "$installation_dir" $DEB_FILE
           rm -rf "$installation_dir"
         env:
-          REVISION: ${{ github.ref }}
+          REVISION: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROSS_TOKEN: ${{ secrets.GH_CROSS_TOKEN }}
 
@@ -68,5 +68,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_CROSS_TOKEN }}
           PPA_REPO: syoch/ppa
+          REVISION: ${{ github.ref_name }}
           OUR_REPO: ${{ github.repository }}
           DEB_FILE: ${{ steps.release.outputs.deb_file }}
