@@ -54,7 +54,8 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
-          permission-actions: write
+          owner: syoch
+          repositories: ppa, LaTeX-Core
 
       - name: Make Release
         id: make_release
@@ -67,12 +68,13 @@ jobs:
       - name: Call PPA Workflow
         id: call_ppa
         run: |
-          echo $GITHUB_TOKEN | base64
+          BODY='{"ref":"main", "inputs": {"version": "'$REVISION'", "repo": "'$OUR_REPO'", "deb": "'$DEB_FILE'"}}'
+
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token $GITHUB_TOKEN" \
             https://api.github.com/repos/$PPA_REPO/actions/workflows/upload.yml/dispatches \
-            -d '{"ref":"main", "inputs": {"version": "'$REVISION'", "repo": "$OUR_REPO", "deb": "'$DEB_FILE'"}}'
+            -d "$BODY"
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           PPA_REPO: syoch/ppa
