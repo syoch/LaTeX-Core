@@ -10,7 +10,7 @@
 			"version": "3.10"
 		},
 		"ghcr.io/devcontainers-extra/features/act:1": {},
-		"ghcr.io/devcontainers/features/docker-in-docker:2.12.2": {}
+		"ghcr.io/devcontainers/features/docker-in-docker:2.12.3": {}
 	},
 	"customizations": {
 		"vscode": {
